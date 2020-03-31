@@ -9,38 +9,47 @@ public class PlayerController : MonoBehaviour
     private Vector2 move;
     private Vector2 look;
     public int id;
+    public float maxHealth;
     public float health;
+    public float maxMana;
     public float mana;
     public bool alive = true;
     public bool invulnerable = false;
     public GameObject wand;
-
+    private bool facingRight = true;
     private Rigidbody2D rb;
+    public GameObject manaBar, healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         GameManager.i.AddPlayer(this);
-    }
-
-    void OnDestroy()
-    {
-        print("thing");
+        health = maxHealth;
+        mana = maxMana;
+        UpdateHealthBar();
+        UpdateManaBar();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButton("Fire2"))
+        {
+            health -= 0.1f;
+            mana -= 0.1f;
+            UpdateHealthBar();
+            UpdateManaBar();
+        }
     }
 
     void FixedUpdate()
     {
-        if (alive)
+        if (alive && !GameManager.i.IsFrozen())
         {
             Move();
             Look();
+            UpdateFacing();
         }
     }
 
@@ -88,8 +97,49 @@ public class PlayerController : MonoBehaviour
         look.x = -look.x;
     }
 
-    void OnPlayerJoined()
+    void OnFire()
     {
-        print("Player Joined!");
+        print("Firing!");
+    }
+
+    public void FlipChar()
+    {
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+    }
+
+    void FaceRight()
+    {
+        if (facingRight)
+            return;
+        if(transform.localScale.x < 0)
+            FlipChar();
+        facingRight = true;
+    }
+
+    void FaceLeft()
+    {
+        if (!facingRight)
+            return;
+        if(transform.localScale.x > 0)
+            FlipChar();
+        facingRight = false;
+    }
+
+    void UpdateFacing()
+    {
+        if (move.x > 0 && look.x < 0)
+            FaceRight();
+        else if (move.x < 0 && look.x > 0)
+            FaceLeft();
+    }
+
+    void UpdateManaBar()
+    {
+        manaBar.transform.localScale = new Vector3(mana / maxMana, 1, 1);
+    }
+    
+    void UpdateHealthBar()
+    {
+        healthBar.transform.localScale = new Vector3(health / maxHealth, 1, 1);
     }
 }

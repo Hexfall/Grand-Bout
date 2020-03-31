@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
             else
                 pim.EnableJoining();
         }
-        if (Input.GetButtonDown("Fire2"))
-            Destroy(players[0].gameObject);
     }
 
     public void AddPlayer(PlayerController player)
@@ -42,5 +40,10 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public bool IsFrozen()
+    {
+        return false;
     }
 }
