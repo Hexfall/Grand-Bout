@@ -37,6 +37,12 @@ public class GameManager : MonoBehaviour
             if (players[i] == null)
             {
                 players[i] = player;
+                player.SetPlayerColor(new Color[] {
+                    new Color(0f/255f, 4f/255f, 134f/255f, 1),
+                    new Color(156f/255f, 3f/255f, 0f/255f, 1),
+                    new Color(156f/255f, 3f/255f, 0f/255f, 1),
+                    new Color(0f/255f, 118f/255f, 3f/255f, 1),
+                }[i]);
                 return;
             }
         }

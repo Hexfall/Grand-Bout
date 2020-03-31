@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public GameObject wand;
     private bool facingRight = true;
     private Rigidbody2D rb;
-    public GameObject manaBar, healthBar;
+    public GameObject manaBar, healthBar, playerSprite, robes;
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButton("Fire2"))
         {
-            health -= 0.1f;
-            mana -= 0.1f;
-            UpdateHealthBar();
-            UpdateManaBar();
+            Damage(.1f);
+            SpendMana(.1f);
         }
     }
 
@@ -64,10 +62,42 @@ public class PlayerController : MonoBehaviour
             if (!GameManager.i.invulnerable)
                 Kill();
         }
+        UpdateHealthBar();
+    }
+
+    public void Heal(float amount)
+    {
+        health += amount;
+        health = (health <= maxHealth? health : maxHealth);
+        UpdateHealthBar();
+    }
+
+    public void SpendMana(float amount)
+    {
+        mana -= amount;
+        if (mana < 0)
+        {
+            Damage(-mana);
+            mana = 0;
+        }
+        UpdateManaBar();
+    }
+
+    public void RegainMana(float amount)
+    {
+        mana += amount;
+        mana = (mana <= maxMana? mana : maxMana);
+        UpdateManaBar();
+    }
+
+    public bool CanCast(float cost)
+    {
+        return cost < mana + health;
     }
 
     public void Kill()
     {
+        print("kill");
         //Death Mechanics here.
         if (GameManager.i.mainMenu)
             Destroy(gameObject);
@@ -104,14 +134,14 @@ public class PlayerController : MonoBehaviour
 
     public void FlipChar()
     {
-        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        playerSprite.transform.localScale = new Vector3(-playerSprite.transform.localScale.x, playerSprite.transform.localScale.y, playerSprite.transform.localScale.z);
     }
 
     void FaceRight()
     {
         if (facingRight)
             return;
-        if(transform.localScale.x < 0)
+        if(playerSprite.transform.localScale.x < 0)
             FlipChar();
         facingRight = true;
     }
@@ -120,16 +150,16 @@ public class PlayerController : MonoBehaviour
     {
         if (!facingRight)
             return;
-        if(transform.localScale.x > 0)
+        if(playerSprite.transform.localScale.x > 0)
             FlipChar();
         facingRight = false;
     }
 
     void UpdateFacing()
     {
-        if (move.x > 0 && look.x < 0)
+        if (move.x > 0 && look.x <= 0)
             FaceRight();
-        else if (move.x < 0 && look.x > 0)
+        else if (move.x < 0 && look.x >= 0)
             FaceLeft();
     }
 
@@ -141,5 +171,10 @@ public class PlayerController : MonoBehaviour
     void UpdateHealthBar()
     {
         healthBar.transform.localScale = new Vector3(health / maxHealth, 1, 1);
+    }
+
+    public void SetPlayerColor(Color color)
+    {
+        robes.GetComponent<SpriteRenderer>().color = color;
     }
 }

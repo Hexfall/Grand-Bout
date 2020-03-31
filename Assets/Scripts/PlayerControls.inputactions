@@ -23,7 +23,7 @@
                 },
                 {
                     "name": "Fire",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "abafb619-5469-4811-aee0-c16b22b93bdd",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -56,7 +56,7 @@
                 {
                     "name": "",
                     "id": "1c58de21-d4df-4f3c-9aac-20db008c213b",
-                    "path": "<XInputController>/rightTrigger",
+                    "path": "<XInputController>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
