@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public int id;
     public float health;
     public float mana;
+    public bool alive = true;
+    public bool invulnerable = false;
 
     private Rigidbody2D rb;
 
@@ -34,12 +36,17 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
-        Look();
+        if (alive)
+        {
+            Move();
+            Look();
+        }
     }
 
     public void Damage(float amount)
     {
+        if (invulnerable)
+            return;
         health -= amount;
         if (health <= 0)
         {
@@ -52,6 +59,8 @@ public class PlayerController : MonoBehaviour
     public void Kill()
     {
         //Death Mechanics here.
+        if (GameManager.i.mainMenu)
+            Destroy(gameObject);
     }
 
     void Look() //Face player in looking direction.
@@ -76,5 +85,10 @@ public class PlayerController : MonoBehaviour
     {
         look = value.Get<Vector2>();
         look.x = -look.x;
+    }
+
+    void OnPlayerJoined()
+    {
+        print("Player Joined!");
     }
 }
