@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float mana;
     public bool alive = true;
     public bool invulnerable = false;
+    public GameObject wand;
 
     private Rigidbody2D rb;
 
@@ -68,7 +69,7 @@ public class PlayerController : MonoBehaviour
         if (look == Vector2.zero)
             return;
         float angle = Mathf.Atan2(look.x, look.y) * Mathf.Rad2Deg;
-        rb.rotation = angle;
+        wand.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
     void Move()
