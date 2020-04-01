@@ -11,6 +11,7 @@ public class FireballScript : MonoBehaviour
     public float NoDamageTime = 0.1f;
     private float spawnTime = 0f;
     public GameObject casing;
+    public GameObject explosion;
 
     void Start()
     {
@@ -20,6 +21,8 @@ public class FireballScript : MonoBehaviour
     void SelfDestruct()
     {
         Destroy(casing);
+            var expl = Instantiate(explosion);
+            expl.transform.position = new Vector3(transform.position.x, transform.position.y + .5f, 0);
     }
 
     void Update()
@@ -34,6 +37,13 @@ public class FireballScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.name.Contains("Fireball"))
+        {
+            other.GetComponent<FireballScript>().SelfDestruct();
+            SelfDestruct();
+            return;
+        }
+
         var playerController = other.GetComponent<PlayerController>();
         if (playerController != null)
         {

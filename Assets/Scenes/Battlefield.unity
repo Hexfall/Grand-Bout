@@ -7824,8 +7824,8 @@ MonoBehaviour:
   - {fileID: 1173706306609576106, guid: 2842b09edcf5fd343b379adfe21bf1c3, type: 3}
   - {fileID: 8356307555981337479, guid: 281a4b3c3ab929f41ad21fc3191ea093, type: 3}
   MTTH:
-  - 5
-  - 5
+  - 4
+  - 4
   spawnArea: {x: 8.85, y: 4.2}
 --- !u!4 &436025906
 Transform:
@@ -10087,10 +10087,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e89148091f3cfc4b9d8cbc7585a44c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: 1
+  mainMenu: 0
   invulnerable: 0
   players:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  playerColors:
+  - {r: 0, g: 0.015686275, b: 0.5254902, a: 1}
+  - {r: 0.6117647, g: 0.011764706, b: 0, a: 1}
+  - {r: 0.2867768, g: 0, b: 0.5471698, a: 1}
+  - {r: 0, g: 0.4627451, b: 0.011764706, a: 1}

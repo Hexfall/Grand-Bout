@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8760664109688205948}
   - component: {fileID: 3267973081148593931}
   - component: {fileID: 3865930888628151859}
+  - component: {fileID: 3607315645951522256}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -154,10 +155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e27a78ea5c1a54480393a3df592219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 5
   damage: 50
-  NoDamageTime: 0.05
+  NoDamageTime: 0.025
   casing: {fileID: 3511683921538780308}
+  explosion: {fileID: 2527076341322617141, guid: 1d482b593fbc4094db7c47c7387ef415,
+    type: 3}
 --- !u!50 &3865930888628151859
 Rigidbody2D:
   serializedVersion: 4
@@ -179,3 +182,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!95 &3607315645951522256
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139315406919176853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f40c99b38139d1d41810a8aa968b6e7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

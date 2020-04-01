@@ -109,7 +109,6 @@ public class PlayerController : MonoBehaviour
     {
         if (amount < 0)
         {
-            print(manaRegen);
             SpendMana(-amount);
             return;
         }
