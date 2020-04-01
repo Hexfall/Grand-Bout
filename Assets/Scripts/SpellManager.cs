@@ -9,7 +9,10 @@ public class SpellManager : MonoBehaviour
     public GameObject fireball;
     public float fireballCost;
     private bool Strengthening = false;
-    public float SpeedMult = 2f;
+    private bool Strengthened = false;
+    public float StrengthCPS = 2f;
+    public float speedMult = 2f;
+    public float resistMult = 2f;
 
     void Awake()
     {
@@ -19,6 +22,14 @@ public class SpellManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void FixedUpdate()
+    {
+        if (Strengthening && player.CanCast((-player.baseManaRegen + StrengthCPS) * Time.fixedDeltaTime))
+            Strengthen();
+        else
+            Unstregnthen();
     }
 
     void OnFire()
@@ -34,13 +45,27 @@ public class SpellManager : MonoBehaviour
     void OnStrengthen()
     {
         Strengthening = !Strengthening;
-        if (Strengthening)
-        {
-            player.MulitplyMovement(SpeedMult);
-        }
-        else
-        {
-            player.MulitplyMovement(1/SpeedMult);
-        }
+    }
+
+    void Strengthen()
+    {
+        if (Strengthened)
+            return;
+        player.MulitplyMovement(speedMult);
+        player.MultiplyDamage(1 / resistMult);
+        player.PassiveSpendMana(StrengthCPS);
+        
+        Strengthened = true;
+    }
+
+    void Unstregnthen()
+    {
+        if (!Strengthened)
+            return;
+        player.MulitplyMovement(1 / speedMult);
+        player.MultiplyDamage(resistMult);
+        player.PassiveRegainMana(StrengthCPS);
+
+        Strengthened = false;
     }
 }

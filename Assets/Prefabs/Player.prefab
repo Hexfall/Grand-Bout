@@ -313,7 +313,8 @@ MonoBehaviour:
   healthRegen: 0
   maxMana: 100
   mana: 100
-  manaRegen: 25
+  manaRegen: 0
+  baseManaRegen: 25
   alive: 1
   invulnerable: 0
   wand: {fileID: 1709483186636620204}
@@ -337,7 +338,9 @@ MonoBehaviour:
   fireball: {fileID: 3511683921538780308, guid: a2a3f0cd4cbaf904d8eaca0ce969b21f,
     type: 3}
   fireballCost: 25
-  SpeedMult: 1.75
+  StrengthCPS: 50
+  speedMult: 2
+  resistMult: 2
 --- !u!114 &6423741214088230954
 MonoBehaviour:
   m_ObjectHideFlags: 0

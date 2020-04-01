@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
     public float maxMana;
     public float mana;
     public float manaRegen = 0f;
+    public float baseManaRegen = 0f;
     public bool alive = true;
     public bool invulnerable = false;
     public GameObject wand;
     private bool facingRight = true;
     private Rigidbody2D rb;
     public GameObject manaBar, healthBar, playerSprite, robes;
+    private float DamageMult = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -56,8 +58,8 @@ public class PlayerController : MonoBehaviour
             Look();
             if (healthRegen != 0)
                 Heal(healthRegen * Time.fixedDeltaTime);
-            if (manaRegen != 0)
-                RegainMana(manaRegen * Time.fixedDeltaTime);
+            if (manaRegen + baseManaRegen != 0)
+                RegainMana((baseManaRegen + manaRegen) * Time.fixedDeltaTime);
         }
     }
 
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         if (invulnerable)
             return;
-        health -= amount;
+        health -= amount * DamageMult;
         if (health <= 0)
         {
             health = 0f;
@@ -73,6 +75,11 @@ public class PlayerController : MonoBehaviour
                 Kill();
         }
         UpdateHealthBar();
+    }
+
+    public void TrueDamage(float amount)
+    {
+        Damage(amount / DamageMult);
     }
 
     public void Heal(float amount)
@@ -84,10 +91,15 @@ public class PlayerController : MonoBehaviour
 
     public void SpendMana(float amount)
     {
+        if (amount < 0)
+        {
+            RegainMana(-amount);
+            return;
+        }
         mana -= amount;
         if (mana < 0)
         {
-            Damage(-mana);
+            TrueDamage(-mana);
             mana = 0;
         }
         UpdateManaBar();
@@ -95,6 +107,12 @@ public class PlayerController : MonoBehaviour
 
     public void RegainMana(float amount)
     {
+        if (amount < 0)
+        {
+            print(manaRegen);
+            SpendMana(-amount);
+            return;
+        }
         mana += amount;
         mana = (mana <= maxMana? mana : maxMana);
         UpdateManaBar();
@@ -185,5 +203,20 @@ public class PlayerController : MonoBehaviour
     public void MulitplyMovement(float multiplier)
     {
         moveMult *= multiplier;
+    }
+
+    public void MultiplyDamage(float multiplier)
+    {
+        DamageMult *= multiplier;
+    }
+
+    public void PassiveSpendMana(float amount)
+    {
+        manaRegen -= amount;
+    }
+
+    public void PassiveRegainMana(float amount)
+    {
+        manaRegen += amount;
     }
 }
