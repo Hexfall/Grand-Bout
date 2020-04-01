@@ -11,14 +11,17 @@ public class PlayerController : MonoBehaviour
     public int id;
     public float maxHealth;
     public float health;
+    public float healthRegen = 0f;
     public float maxMana;
     public float mana;
+    public float manaRegen = 0f;
     public bool alive = true;
     public bool invulnerable = false;
     public GameObject wand;
     private bool facingRight = true;
     private Rigidbody2D rb;
-    public GameObject manaBar, healthBar, playerSprite, robes;
+    public GameObject manaBar, healthBar, playerSprite, robes, fireball;
+    public float fireballCost;
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +39,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButton("Fire2"))
         {
-            Damage(.1f);
             SpendMana(.1f);
+        }
+        
+        if (alive && !GameManager.i.IsFrozen())
+        {
+            UpdateFacing();
         }
     }
 
@@ -47,7 +54,10 @@ public class PlayerController : MonoBehaviour
         {
             Move();
             Look();
-            UpdateFacing();
+            if (healthRegen != 0)
+                Heal(healthRegen * Time.fixedDeltaTime);
+            if (manaRegen != 0)
+                RegainMana(manaRegen * Time.fixedDeltaTime);
         }
     }
 
@@ -97,13 +107,12 @@ public class PlayerController : MonoBehaviour
 
     public void Kill()
     {
-        print("kill");
         //Death Mechanics here.
         if (GameManager.i.mainMenu)
             Destroy(gameObject);
     }
 
-    void Look() //Face player in looking direction.
+    void Look() //Face wand in aiming direction.
     {
         if (look == Vector2.zero)
             return;
@@ -129,7 +138,12 @@ public class PlayerController : MonoBehaviour
 
     void OnFire()
     {
-        print("Firing!");
+        if (!CanCast(fireballCost))
+            return;
+        SpendMana(fireballCost);
+        var fire = Instantiate(fireball) as GameObject;
+        fire.transform.position = wand.transform.position;
+        fire.transform.Rotate(wand.transform.eulerAngles);
     }
 
     public void FlipChar()
