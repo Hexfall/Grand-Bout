@@ -10,10 +10,16 @@ public class FireballScript : MonoBehaviour
     private bool canDamage = false;
     public float NoDamageTime = 0.1f;
     private float spawnTime = 0f;
+    public GameObject casing;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void SelfDestruct()
+    {
+        Destroy(casing);
     }
 
     void Update()
@@ -34,15 +40,24 @@ public class FireballScript : MonoBehaviour
             if (canDamage)
             {
                 playerController.Damage(damage);
-                Destroy(gameObject);
+                SelfDestruct();
             }
+            return;
         }
-        else
-            Destroy(gameObject);
+        Pickup Pickup = other.transform.GetComponent<Pickup>();
+        if (Pickup != null)
+            return;
+        SelfDestruct();
     }
 
-    public void SetRotation(float rotation)
+    void OnTriggerExit2D(Collider2D other)
     {
-        GetComponent<Rigidbody2D>().rotation = rotation;
+        var playerController = other.GetComponent<PlayerController>();
+        if (playerController != null)
+            return;
+        Pickup Pickup = other.transform.GetComponent<Pickup>();
+        if (Pickup != null)
+            return;
+        SelfDestruct();
     }
 }

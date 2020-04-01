@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
+    private float moveMult = 1f;
     private Vector2 move;
     private Vector2 look;
     public int id;
@@ -20,8 +21,7 @@ public class PlayerController : MonoBehaviour
     public GameObject wand;
     private bool facingRight = true;
     private Rigidbody2D rb;
-    public GameObject manaBar, healthBar, playerSprite, robes, fireball;
-    public float fireballCost;
+    public GameObject manaBar, healthBar, playerSprite, robes;
 
     // Start is called before the first frame update
     void Start()
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
     public void Kill()
     {
         //Death Mechanics here.
-        if (GameManager.i.mainMenu)
+        //if (GameManager.i.mainMenu)
             Destroy(gameObject);
     }
 
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        rb.velocity = move * moveSpeed;
+        rb.velocity = move * moveSpeed * moveMult;
     }
 
     void OnMove(InputValue value)
@@ -134,16 +134,6 @@ public class PlayerController : MonoBehaviour
     {
         look = value.Get<Vector2>();
         look.x = -look.x;
-    }
-
-    void OnFire()
-    {
-        if (!CanCast(fireballCost))
-            return;
-        SpendMana(fireballCost);
-        var fire = Instantiate(fireball) as GameObject;
-        fire.transform.position = wand.transform.position;
-        fire.transform.Rotate(wand.transform.eulerAngles);
     }
 
     public void FlipChar()
@@ -190,5 +180,10 @@ public class PlayerController : MonoBehaviour
     public void SetPlayerColor(Color color)
     {
         robes.GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public void MulitplyMovement(float multiplier)
+    {
+        moveMult *= multiplier;
     }
 }

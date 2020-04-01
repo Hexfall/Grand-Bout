@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 5132841442560487089}
   - component: {fileID: 5132841442560487102}
   - component: {fileID: 8692029005852997082}
+  - component: {fileID: 6423741214088230954}
   - component: {fileID: 5132841442560487090}
   - component: {fileID: 8015566836588402227}
   m_Layer: 0
@@ -312,7 +313,7 @@ MonoBehaviour:
   healthRegen: 0
   maxMana: 100
   mana: 100
-  manaRegen: 35
+  manaRegen: 25
   alive: 1
   invulnerable: 0
   wand: {fileID: 1709483186636620204}
@@ -320,9 +321,6 @@ MonoBehaviour:
   healthBar: {fileID: 2129148593019097165}
   playerSprite: {fileID: 7472718621265441530}
   robes: {fileID: 6636567613578151874}
-  fireball: {fileID: 3511683921538780308, guid: a2a3f0cd4cbaf904d8eaca0ce969b21f,
-    type: 3}
-  fireballCost: 25
 --- !u!114 &8692029005852997082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +331,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf585cb9f7c23db4fb174f01199ae6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wand: {fileID: 1709483186636620204}
+  fireball: {fileID: 3511683921538780308, guid: a2a3f0cd4cbaf904d8eaca0ce969b21f,
+    type: 3}
+  fireballCost: 25
+  SpeedMult: 1.75
+--- !u!114 &6423741214088230954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132841442560487103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2647e9796ccbc8c4ca510dbf8232b248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!50 &5132841442560487090
