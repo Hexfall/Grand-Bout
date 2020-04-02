@@ -21,8 +21,8 @@ public class FireballScript : MonoBehaviour
     void SelfDestruct()
     {
         Destroy(casing);
-            var expl = Instantiate(explosion);
-            expl.transform.position = new Vector3(transform.position.x, transform.position.y + .5f, 0);
+        var expl = Instantiate(explosion);
+        expl.transform.position = new Vector3(transform.position.x, transform.position.y + .5f, 0);
     }
 
     void Update()

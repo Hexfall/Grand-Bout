@@ -7824,8 +7824,8 @@ MonoBehaviour:
   - {fileID: 1173706306609576106, guid: 2842b09edcf5fd343b379adfe21bf1c3, type: 3}
   - {fileID: 8356307555981337479, guid: 281a4b3c3ab929f41ad21fc3191ea093, type: 3}
   MTTH:
-  - 4
-  - 4
+  - 5
+  - 5
   spawnArea: {x: 8.85, y: 4.2}
 --- !u!4 &436025906
 Transform:
