@@ -136,8 +136,7 @@ public class PlayerController : MonoBehaviour
             return;
         float angle = Mathf.Atan2(look.x, look.y) * Mathf.Rad2Deg;
         wand.transform.eulerAngles = new Vector3(0, 0, angle);
-        if (colorChanging)
-            ColorChange();
+        ColorChange();
     }
 
     void Move()
@@ -224,6 +223,34 @@ public class PlayerController : MonoBehaviour
 
     public void ColorChange()
     {
+        if (!colorChanging)
+            return;
         float dir = wand.transform.eulerAngles.z;
+        dir = (dir + 300) % 360; // Make top-left (Green) default.
+        float rem = dir % 120;
+        Vector4 change = Vector4.zero;
+        if ((int) (dir / 120) == 0)
+            change = new Vector4(
+                48f,
+                48f + 152f*Mathf.Min(120 - rem, 60)/60f,
+                48f + 152f*Mathf.Min(rem, 60)/60f,
+                255f
+            );
+        if ((int) (dir / 120) == 1)
+            change = new Vector4(
+                48f + 152f*Mathf.Min(rem, 60)/60f,
+                48f,
+                48f + 152f*Mathf.Min(120 - rem, 60)/60f,
+                255f
+            );
+        if ((int) (dir / 120) == 2)
+            change = new Vector4(
+                48f + 152f*Mathf.Min(120 - rem, 60)/60f,
+                48f + 152f*Mathf.Min(rem, 60)/60f,
+                48f,
+                255f
+            );
+        change /= 255f;
+        SetPlayerColor(change);
     }
 }

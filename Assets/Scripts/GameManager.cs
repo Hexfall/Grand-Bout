@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public PlayerController[] players;
     public Color[] playerColors;
     private PlayerInputManager pim;
+    public GameObject[] levels;
 
     void Awake()
     {
@@ -56,5 +57,10 @@ public class GameManager : MonoBehaviour
     public bool IsFrozen()
     {
         return false;
+    }
+
+    public void StartGame()
+    {
+        
     }
 }
