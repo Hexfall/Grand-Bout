@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public GameObject manaBar, healthBar, playerSprite, robes;
     private float DamageMult = 1f;
+    public bool colorChanging;
 
     // Start is called before the first frame update
     void Start()
@@ -135,6 +136,8 @@ public class PlayerController : MonoBehaviour
             return;
         float angle = Mathf.Atan2(look.x, look.y) * Mathf.Rad2Deg;
         wand.transform.eulerAngles = new Vector3(0, 0, angle);
+        if (colorChanging)
+            ColorChange();
     }
 
     void Move()
@@ -217,5 +220,10 @@ public class PlayerController : MonoBehaviour
     public void PassiveRegainMana(float amount)
     {
         manaRegen += amount;
+    }
+
+    public void ColorChange()
+    {
+        float dir = wand.transform.eulerAngles.z;
     }
 }

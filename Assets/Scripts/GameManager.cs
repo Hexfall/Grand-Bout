@@ -33,15 +33,24 @@ public class GameManager : MonoBehaviour
 
     public void AddPlayer(PlayerController player)
     {
+        player.transform.position = transform.position;
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i] == null)
             {
                 players[i] = player;
-                player.SetPlayerColor(playerColors[i]);
+                player.SetPlayerColor(playerColors[i % playerColors.Length]);
                 return;
             }
         }
+    }
+
+    public int PlayerCount()
+    {
+        int retInt = 0;
+        foreach (var player in players)
+            retInt += (player != null ? 1 : 0);
+        return retInt;
     }
 
     public bool IsFrozen()

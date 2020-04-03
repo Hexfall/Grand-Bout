@@ -322,6 +322,7 @@ MonoBehaviour:
   healthBar: {fileID: 2129148593019097165}
   playerSprite: {fileID: 7472718621265441530}
   robes: {fileID: 6636567613578151874}
+  colorChanging: 0
 --- !u!114 &8692029005852997082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +543,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: ca44be1c736502f4887ec266146bafcd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.46498722, g: 0.1882353, b: 0.78431374, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -659,7 +660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8684388402071703696}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1023, y: 0.1746, z: 0}
+  m_LocalPosition: {x: -0.1041, y: 0.1746, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7133485540350809674}

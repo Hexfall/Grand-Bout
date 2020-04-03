@@ -37,6 +37,8 @@ public class FireballScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.name.ToLower().Contains("pass"))
+            return;
         if (other.name.Contains("Fireball"))
         {
             other.GetComponent<FireballScript>().SelfDestruct();
@@ -62,6 +64,8 @@ public class FireballScript : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (other.name.ToLower().Contains("pass"))
+            return;
         var playerController = other.GetComponent<PlayerController>();
         if (playerController != null)
             return;

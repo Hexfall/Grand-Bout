@@ -34,6 +34,11 @@ public class SpellManager : MonoBehaviour
 
     void OnFire()
     {
+        CastFireball();
+    }
+
+    void CastFireball()
+    {
         if (!player.CanCast(fireballCost))
             return;
         player.SpendMana(fireballCost);
