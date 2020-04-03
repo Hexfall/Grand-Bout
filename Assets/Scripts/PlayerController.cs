@@ -253,4 +253,9 @@ public class PlayerController : MonoBehaviour
         change /= 255f;
         SetPlayerColor(change);
     }
+
+    public void SetLocation(Vector3 pos)
+    {
+        transform.position = pos;
+    }
 }

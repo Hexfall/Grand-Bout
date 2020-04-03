@@ -17,7 +17,7 @@ public class ReadyScript : MonoBehaviour
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
         if (player != null)
             players += 1;
-        if (players <= minimumPlayers && players == GameManager.i.PlayerCount())
+        if (players >= minimumPlayers && players == GameManager.i.PlayerCount())
             GameManager.i.StartGame();
     }
 

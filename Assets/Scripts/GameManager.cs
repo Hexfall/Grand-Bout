@@ -12,12 +12,25 @@ public class GameManager : MonoBehaviour
     public Color[] playerColors;
     private PlayerInputManager pim;
     public GameObject[] levels;
+    private LevelScript[] levelScripts;
+    private GameObject enabledLevel;
+    private LevelScript enabledLevelScript;
+    public GameObject PickupDropper;
 
     void Awake()
     {
         i = this;
+
+        // Init Players.
         pim = GetComponent<PlayerInputManager>();
         players = new PlayerController[pim.maxPlayerCount];
+
+        // Init Levels.
+        levelScripts = new LevelScript[levels.Length];
+        for (int i = 0; i < levels.Length; i++)
+            levelScripts[i] = levels[i].GetComponent<LevelScript>();
+        enabledLevel = levels[0];
+        enabledLevelScript = levelScripts[0];
     }
 
     // Update is called once per frame
@@ -59,8 +72,52 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    private void EnableLevel(int index)
+    {
+        if (index >= levels.Length)
+            index = 0;
+        // Clean up from previous level.
+        enabledLevel.SetActive(false);
+        PickupDropper.GetComponent<PickupDropper>().ClearDrops();
+
+        enabledLevel = levels[index];
+        enabledLevelScript = levelScripts[index];
+        enabledLevel.SetActive(true);
+    }
+
+    public Vector3 GetSpawn(int index)
+    {
+        return enabledLevelScript.GetSpawnByIndex(index);
+    }
+
+    public Vector3 GetSpawnRandom()
+    {
+        return enabledLevelScript.GetRandomSpawn();
+    }
+
     public void StartGame()
     {
-        
+        mainMenu = false;
+        LoadLevel(Random.Range(1, levels.Length - 1));
+    }
+
+    public void MainMenu()
+    {
+        mainMenu = true;
+        LoadLevel(0);
+    }
+
+    private void SetPlayerLocation(PlayerController player, Vector3 location)
+    {
+        player.SetLocation(location);
+    }
+
+    private void LoadLevel(int index)
+    {
+        EnableLevel(index);
+
+        for (int i = 0; i < players.Length; i++)
+            if (players[i] != null)
+                SetPlayerLocation(players[i], GetSpawn(i));
     }
 }

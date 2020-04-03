@@ -13,6 +13,8 @@ public class PickupDropper : MonoBehaviour
         if (GameManager.i.IsFrozen() || GameManager.i.mainMenu)
             return;
         Check();
+        if (Input.GetButtonDown("Fire2"))
+            ClearDrops();
     }
 
     void Check()
@@ -26,7 +28,8 @@ public class PickupDropper : MonoBehaviour
 
     void SpawnObject(GameObject toSpawn)
     {
-        Instantiate(toSpawn, RandomPoint(), gameObject.transform.rotation);
+        var drop = Instantiate(toSpawn, RandomPoint(), gameObject.transform.rotation) as GameObject;
+        drop.transform.parent = transform;
     }
 
     Vector3 RandomPoint()
@@ -35,6 +38,12 @@ public class PickupDropper : MonoBehaviour
         retVec.x = Random.Range(-spawnArea.x, spawnArea.x);
         retVec.y = Random.Range(-spawnArea.y, spawnArea.y);
         return retVec;
+    }
+
+    public void ClearDrops()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+            Destroy(transform.GetChild(i).gameObject);
     }
 
     void OnDrawGizmosSelected()
