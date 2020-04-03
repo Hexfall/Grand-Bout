@@ -31,23 +31,12 @@ public class GameManager : MonoBehaviour
             levelScripts[i] = levels[i].GetComponent<LevelScript>();
         enabledLevel = levels[0];
         enabledLevelScript = levelScripts[0];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            if (pim.joiningEnabled)
-                pim.DisableJoining();
-            else
-                pim.EnableJoining();
-        }
+        MainMenu();
     }
 
     public void AddPlayer(PlayerController player)
     {
-        player.transform.position = transform.position;
+        SetPlayerLocation(player, GetSpawnRandom());
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i] == null)
@@ -98,12 +87,14 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         mainMenu = false;
+        pim.DisableJoining();
         LoadLevel(Random.Range(1, levels.Length - 1));
     }
 
     public void MainMenu()
     {
         mainMenu = true;
+        pim.EnableJoining();
         LoadLevel(0);
     }
 
@@ -119,5 +110,24 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
             if (players[i] != null)
                 SetPlayerLocation(players[i], GetSpawn(i));
+    }
+
+    public int AlivePlayers()
+    {
+        int retInt = 0;
+        foreach (var player in players)
+            retInt += (player != null ? (player.alive ? 1 : 0) : 0);
+        return retInt;
+    }
+
+    public void CheckWin()
+    {
+        if (AlivePlayers() == 1)
+        {
+            MainMenu();
+            foreach (var player in players)
+                if (player != null)
+                    player.Reset();
+        }
     }
 }

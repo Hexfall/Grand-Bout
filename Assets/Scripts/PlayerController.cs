@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public GameObject manaBar, healthBar, playerSprite, robes;
     private float DamageMult = 1f;
     public bool colorChanging;
+    public int lives = 5;
+    public int curLives;
 
     // Start is called before the first frame update
     void Start()
@@ -35,16 +37,12 @@ public class PlayerController : MonoBehaviour
         mana = maxMana;
         UpdateHealthBar();
         UpdateManaBar();
+        curLives = lives;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire2"))
-        {
-            SpendMana(.1f);
-        }
-        
         if (alive && !GameManager.i.IsFrozen())
         {
             UpdateFacing();
@@ -123,11 +121,34 @@ public class PlayerController : MonoBehaviour
         return cost < mana + health;
     }
 
+    public void Show()
+    {
+        playerSprite.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        playerSprite.SetActive(false);
+    }
+
     public void Kill()
     {
         //Death Mechanics here.
-        //if (GameManager.i.mainMenu)
+        if (GameManager.i.mainMenu)
+        {
             Destroy(gameObject);
+            return;
+        }
+
+        curLives--;
+        if (curLives != 0)
+            Respawn();
+        else
+        {
+            alive = false;
+            Hide();
+            GameManager.i.CheckWin();
+        }
     }
 
     void Look() //Face wand in aiming direction.
@@ -257,5 +278,30 @@ public class PlayerController : MonoBehaviour
     public void SetLocation(Vector3 pos)
     {
         transform.position = pos;
+    }
+
+    public void Winner()
+    {
+
+    }
+
+    public void Loser()
+    {
+
+    }
+
+    public void Respawn()
+    {
+        SetLocation(GameManager.i.GetSpawnRandom());
+        health = maxHealth;
+        mana = maxMana;
+    }
+
+    public void Reset()
+    {
+        Show();
+        Respawn();
+        curLives = lives;
+        alive = true;
     }
 }

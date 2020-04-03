@@ -21,8 +21,8 @@ public class LevelScript : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         // Draw a semitransparent green cube at the transforms position
-        Gizmos.color = new Color(0.5f, 0, 0.5f, 0.8f);
+        Gizmos.color = new Color(0.5f, 0, 0.5f, 1f);
         for (int i = 0; i < spawnPoints.Length; i++)
-            Gizmos.DrawSphere(spawnPoints[i], .05f);
+            Gizmos.DrawSphere(spawnPoints[i], .08f);
     }
 }
