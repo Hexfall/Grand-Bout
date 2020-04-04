@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour
         enabledLevel = levels[index];
         enabledLevelScript = levelScripts[index];
         enabledLevel.SetActive(true);
+        foreach (var player in players)
+            if (player != null)
+                player.Reset();
     }
 
     public Vector3 GetSpawn(int index)
@@ -120,14 +123,29 @@ public class GameManager : MonoBehaviour
         return retInt;
     }
 
+    public PlayerController GetWinner()
+    {
+        foreach (var player in players)
+            if (player != null && player.alive)
+                return player;
+        return null;
+    }
+
     public void CheckWin()
     {
         if (AlivePlayers() == 1)
         {
+            var winner = GetWinner();
             MainMenu();
             foreach (var player in players)
                 if (player != null)
                     player.Reset();
+            winner.Win();
         }
+    }
+
+    public void ScreenShake(float intensity, float duration = 0.1f)
+    {
+        Camera.main.gameObject.GetComponent<CameraManager>().ScreenShake(intensity, duration);
     }
 }

@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public bool colorChanging;
     public int lives = 5;
     public int curLives;
+    public GameObject crown;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
         UpdateHealthBar();
         UpdateManaBar();
         curLives = lives;
+        Lose();
     }
 
     // Update is called once per frame
@@ -124,29 +126,32 @@ public class PlayerController : MonoBehaviour
     public void Show()
     {
         playerSprite.SetActive(true);
+        GetComponent<Collider2D>().enabled = true;
     }
 
     public void Hide()
     {
         playerSprite.SetActive(false);
+        GetComponent<Collider2D>().enabled = false;
+    }
+
+    public void Leave()
+    {
+        Destroy(gameObject);
     }
 
     public void Kill()
     {
-        //Death Mechanics here.
-        if (GameManager.i.mainMenu)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         curLives--;
+        if (curLives < 0)
+            curLives = 0;
         if (curLives != 0)
             Respawn();
         else
         {
             alive = false;
             Hide();
+            SpendMana(maxMana);
             GameManager.i.CheckWin();
         }
     }
@@ -280,28 +285,34 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
     }
 
-    public void Winner()
+    public void Win()
     {
-
+        crown.SetActive(true);
     }
 
-    public void Loser()
+    public void Lose()
     {
-
+        crown.SetActive(false);
     }
 
     public void Respawn()
     {
         SetLocation(GameManager.i.GetSpawnRandom());
-        health = maxHealth;
-        mana = maxMana;
+        if (alive)
+        {
+            Heal(maxHealth);
+            RegainMana(maxMana);
+        }
+        else
+            SpendMana(maxMana);
     }
 
     public void Reset()
     {
+        alive = true;
         Show();
+        Lose();
         Respawn();
         curLives = lives;
-        alive = true;
     }
 }

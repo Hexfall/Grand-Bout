@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DestroyOnPickup: 1
-  healAmount: 40
+  healAmount: 125
 --- !u!61 &569101868405250841
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class Pickup : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         var player = other.GetComponent<PlayerController>();
-        if (player != null)
+        if (player != null && player.alive)
         {
             Use(player);
             if (DestroyOnPickup)
