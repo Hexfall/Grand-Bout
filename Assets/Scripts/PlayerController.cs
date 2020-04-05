@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetLocation(GameManager.i.GetSpawnRandom());
         rb = GetComponent<Rigidbody2D>();
         GameManager.i.AddPlayer(this);
         health = maxHealth;
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
     public bool CanCast(float cost)
     {
-        return cost < mana + health;
+        return cost < mana + health || GameManager.i.invulnerable;
     }
 
     public void Show()
@@ -137,6 +138,7 @@ public class PlayerController : MonoBehaviour
 
     public void Leave()
     {
+        GameManager.i.RemovePlayer(this);
         Destroy(gameObject);
     }
 

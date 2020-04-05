@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
 
     public void AddPlayer(PlayerController player)
     {
-        SetPlayerLocation(player, GetSpawnRandom());
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i] == null)
@@ -46,6 +45,13 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void RemovePlayer(PlayerController player)
+    {
+        for (int i = 0; i < players.Length; i++)
+            if (players[i] == player)
+                players[i] = null;
     }
 
     public int PlayerCount()
@@ -90,6 +96,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         mainMenu = false;
+        invulnerable = false;
         pim.DisableJoining();
         LoadLevel(Random.Range(1, levels.Length - 1));
     }
@@ -97,6 +104,7 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         mainMenu = true;
+        invulnerable = true;
         pim.EnableJoining();
         LoadLevel(0);
     }
@@ -147,5 +155,10 @@ public class GameManager : MonoBehaviour
     public void ScreenShake(float intensity, float duration = 0.1f)
     {
         Camera.main.gameObject.GetComponent<CameraManager>().ScreenShake(intensity, duration);
+    }
+
+    public void OnPlayerJoined()
+    {
+        print("join");
     }
 }

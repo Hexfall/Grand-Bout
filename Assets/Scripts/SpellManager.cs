@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class SpellManager : MonoBehaviour
 {
-    private PlayerController player;
+    [Header("Player")]
     public GameObject wand;
+    private PlayerController player;
+
+    [Header("Fireball")]
     public GameObject fireball;
     public float fireballCost;
-    private bool Strengthening = false;
-    private bool Strengthened = false;
+    
+    [Header("Strengthening")]
     public float StrengthCPS = 2f;
     public float speedMult = 2f;
     public float resistMult = 2f;
+    private bool Strengthening = false;
+    private bool Strengthened = false;
+    
+    [Header("Lightning")]
+    public float toleranceAngle;
+    public float lightningDPS;
 
     void Awake()
     {
         player = GetComponent<PlayerController>();
-    }
-
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()
@@ -35,6 +39,11 @@ public class SpellManager : MonoBehaviour
     void OnFire()
     {
         CastFireball();
+    }
+
+    void CastLightning()
+    {
+
     }
 
     void CastFireball()
