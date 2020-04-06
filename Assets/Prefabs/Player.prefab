@@ -307,27 +307,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a666cad2ff540f44d91cdbec73b3ede9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSprite: {fileID: 7472718621265441530}
+  robes: {fileID: 6636567613578151874}
+  wand: {fileID: 1709483186636620204}
+  crown: {fileID: 5252260967657550069}
+  reticle: {fileID: 5246180059870133583}
   moveSpeed: 4.5
-  id: 1
+  colorChanging: 0
+  healthBar: {fileID: 2129148593019097165}
+  alive: 1
+  invulnerable: 0
   maxHealth: 250
   health: 250
   healthRegen: 0
-  maxMana: 100
-  mana: 100
-  manaRegen: 0
-  baseManaRegen: 25
-  alive: 1
-  invulnerable: 0
-  wand: {fileID: 1709483186636620204}
-  manaBar: {fileID: 8684388402071703696}
-  healthBar: {fileID: 2129148593019097165}
-  playerSprite: {fileID: 7472718621265441530}
-  robes: {fileID: 6636567613578151874}
-  colorChanging: 0
+  respawnTime: 1
   lives: 5
   curLives: 0
-  crown: {fileID: 5252260967657550069}
-  reticle: {fileID: 5246180059870133583}
+  manaBar: {fileID: 8684388402071703696}
+  maxMana: 100
+  mana: 100
+  baseManaRegen: 25
+  manaRegen: 0
 --- !u!114 &8692029005852997082
 MonoBehaviour:
   m_ObjectHideFlags: 0

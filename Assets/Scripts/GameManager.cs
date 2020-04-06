@@ -130,7 +130,9 @@ public class GameManager : MonoBehaviour
     {
         int retInt = 0;
         foreach (var player in players)
-            retInt += (player != null ? (player.alive ? 1 : 0) : 0);
+            if (player != null)
+                if (player.Alive())
+                    retInt++;
         return retInt;
     }
 
@@ -144,6 +146,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckWin()
     {
+        print(AlivePlayers());
         if (AlivePlayers() == 1)
         {
             var winner = GetWinner();

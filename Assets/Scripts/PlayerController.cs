@@ -5,30 +5,36 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Controls")]
+    public GameObject playerSprite;
+    public GameObject robes;
+    public GameObject wand;
+    public GameObject crown;
+    public GameObject reticle;
     public float moveSpeed;
+    public bool colorChanging;
     private float moveMult = 1f;
     private Vector2 move;
     private Vector2 look;
-    public int id;
+    [Header("Health")]
+    public GameObject healthBar;
+    public bool alive = true;
+    public bool invulnerable = false;
     public float maxHealth;
     public float health;
     public float healthRegen = 0f;
-    public float maxMana;
-    public float mana;
-    public float manaRegen = 0f;
-    public float baseManaRegen = 0f;
-    public bool alive = true;
-    public bool invulnerable = false;
-    public GameObject wand;
-    private bool facingRight = true;
-    private Rigidbody2D rb;
-    public GameObject manaBar, healthBar, playerSprite, robes;
-    private float DamageMult = 1f;
-    public bool colorChanging;
+    public float respawnTime = 2f;
     public int lives = 5;
     public int curLives;
-    public GameObject crown;
-    public GameObject reticle;
+    [Header("Mana")]
+    public GameObject manaBar;
+    public float maxMana;
+    public float mana;
+    public float baseManaRegen = 0f;
+    public float manaRegen = 0f;
+    private bool facingRight = true;
+    private Rigidbody2D rb;
+    private float DamageMult = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -128,13 +134,15 @@ public class PlayerController : MonoBehaviour
     public void Show()
     {
         playerSprite.SetActive(true);
-        GetComponent<Collider2D>().enabled = true;
+        manaBar.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        healthBar.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void Hide()
     {
         playerSprite.SetActive(false);
-        GetComponent<Collider2D>().enabled = false;
+        manaBar.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        healthBar.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
     }
 
     public void Leave()
@@ -149,10 +157,11 @@ public class PlayerController : MonoBehaviour
         if (curLives < 0)
             curLives = 0;
         if (curLives != 0)
-            Respawn();
+            StartCoroutine(Respawn());
         else
         {
             alive = false;
+            GetComponent<Collider2D>().enabled = false;
             Hide();
             SpendMana(maxMana);
             GameManager.i.CheckWin();
@@ -166,6 +175,11 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(look.x, look.y) * Mathf.Rad2Deg;
         wand.transform.eulerAngles = new Vector3(0, 0, angle);
         ColorChange();
+    }
+
+    public bool Alive()
+    {
+        return (curLives > 0);
     }
 
     void Move()
@@ -299,9 +313,11 @@ public class PlayerController : MonoBehaviour
         crown.SetActive(false);
     }
 
-    public void Respawn()
+    public void Spawn()
     {
+        GetComponent<Collider2D>().enabled = true;
         SetLocation(GameManager.i.GetSpawnRandom());
+        Show();
         if (alive)
         {
             Heal(maxHealth);
@@ -311,12 +327,24 @@ public class PlayerController : MonoBehaviour
             SpendMana(maxMana);
     }
 
+    public IEnumerator Respawn()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        alive = false;
+        Hide();
+        yield return new WaitForSeconds(respawnTime);
+        alive = true;
+        GetComponent<Collider2D>().enabled = true;
+        Spawn();
+        print("tring");
+    }
+
     public void Reset()
     {
         alive = true;
         Show();
         Lose();
-        Respawn();
+        Spawn();
         curLives = lives;
     }
 }
