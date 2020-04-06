@@ -22,6 +22,7 @@ public class SpellManager : MonoBehaviour
     [Header("Lightning")]
     public float toleranceAngle;
     public float lightningDPS;
+    private bool castingLightning = false;
 
     void Awake()
     {
@@ -41,6 +42,15 @@ public class SpellManager : MonoBehaviour
         CastFireball();
     }
 
+    void OnLightning()
+    {
+        castingLightning = !castingLightning;
+        if (castingLightning)
+            print("cast");
+        else
+            print("not");
+    }
+
     void CastLightning()
     {
 
@@ -52,6 +62,7 @@ public class SpellManager : MonoBehaviour
             return;
         player.SpendMana(fireballCost);
         var fire = Instantiate(fireball) as GameObject;
+        fire.transform.GetChild(0).GetComponent<FireballScript>().owner = player;
         fire.transform.position = wand.transform.position;
         fire.transform.Rotate(wand.transform.eulerAngles);
     }

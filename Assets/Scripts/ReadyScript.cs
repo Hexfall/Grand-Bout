@@ -43,10 +43,10 @@ public class ReadyScript : MonoBehaviour
 
     private void Accelerate(float target)
     {
-        if (anim.speed + accel * Time.fixedDeltaTime > target)
+        if (anim.speed + accel * Time.fixedDeltaTime * players > target)
             anim.speed = target;
         else
-            anim.speed += accel * Time.fixedDeltaTime;
+            anim.speed += accel * Time.fixedDeltaTime * players;
     }
 
     private void Decelerate(float target)

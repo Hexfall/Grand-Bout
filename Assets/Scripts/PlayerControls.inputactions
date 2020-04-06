@@ -68,6 +68,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Lightning",
+                    "type": "Button",
+                    "id": "c0a85be8-22a9-4d54-8534-cad6ea89eba7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=0.3,behavior=2)"
                 }
             ],
             "bindings": [
@@ -178,6 +186,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42c41f9b-88cd-481a-bcd0-7a04648cd5da",
+                    "path": "<XInputController>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lightning",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

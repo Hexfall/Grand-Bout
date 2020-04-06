@@ -7,11 +7,12 @@ public class FireballScript : MonoBehaviour
     private Rigidbody2D rb;
     public float speed;
     public float damage;
-    private bool canDamage = false;
+    private bool canDamageSelf = false;
     public float NoDamageTime = 0.1f;
     private float spawnTime = 0f;
     public GameObject casing;
     public GameObject explosion;
+    public PlayerController owner;
 
     void Start()
     {
@@ -28,11 +29,11 @@ public class FireballScript : MonoBehaviour
     void Update()
     {
         transform.localPosition += Vector3.down * speed * Time.deltaTime;
-        if (canDamage)
+        if (canDamageSelf)
             return;
         spawnTime += Time.deltaTime;
         if (spawnTime >= NoDamageTime)
-            canDamage = true;
+            canDamageSelf = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -49,26 +50,13 @@ public class FireballScript : MonoBehaviour
         var playerController = other.GetComponent<PlayerController>();
         if (playerController != null)
         {
-            if (canDamage)
+            if (!(canDamageSelf && playerController == owner))
             {
                 playerController.Damage(damage);
                 SelfDestruct();
             }
             return;
         }
-        Pickup Pickup = other.transform.GetComponent<Pickup>();
-        if (Pickup != null)
-            return;
-        SelfDestruct();
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.name.ToLower().Contains("pass"))
-            return;
-        var playerController = other.GetComponent<PlayerController>();
-        if (playerController != null)
-            return;
         Pickup Pickup = other.transform.GetComponent<Pickup>();
         if (Pickup != null)
             return;

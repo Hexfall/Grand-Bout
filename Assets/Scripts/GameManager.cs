@@ -159,9 +159,4 @@ public class GameManager : MonoBehaviour
     {
         Camera.main.gameObject.GetComponent<CameraManager>().ScreenShake(intensity, duration);
     }
-
-    public void OnPlayerJoined()
-    {
-        print("join");
-    }
 }

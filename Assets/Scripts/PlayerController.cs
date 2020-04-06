@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public int lives = 5;
     public int curLives;
     public GameObject crown;
+    public GameObject reticle;
 
     // Start is called before the first frame update
     void Start()
@@ -227,6 +228,7 @@ public class PlayerController : MonoBehaviour
     public void SetPlayerColor(Color color)
     {
         robes.GetComponent<SpriteRenderer>().color = color;
+        reticle.GetComponent<SpriteRenderer>().color = color;
     }
 
     public void MulitplyMovement(float multiplier)
