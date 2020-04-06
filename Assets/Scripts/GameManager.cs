@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private GameObject enabledLevel;
     private LevelScript enabledLevelScript;
     public GameObject PickupDropper;
+    public MusicManager music;
 
     void Awake()
     {
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
         invulnerable = false;
         pim.DisableJoining();
         LoadLevel(Random.Range(1, levels.Length - 1));
+        music.BattleMusic();
     }
 
     public void MainMenu()
@@ -107,6 +109,7 @@ public class GameManager : MonoBehaviour
         invulnerable = true;
         pim.EnableJoining();
         LoadLevel(0);
+        music.MenuMusic();
     }
 
     private void SetPlayerLocation(PlayerController player, Vector3 location)
