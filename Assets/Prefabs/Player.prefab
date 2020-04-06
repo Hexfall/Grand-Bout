@@ -240,6 +240,8 @@ GameObject:
   - component: {fileID: 6423741214088230954}
   - component: {fileID: 5132841442560487090}
   - component: {fileID: 8015566836588402227}
+  - component: {fileID: 1836721520235641121}
+  - component: {fileID: 2293071999524289222}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -312,6 +314,7 @@ MonoBehaviour:
   wand: {fileID: 1709483186636620204}
   crown: {fileID: 5252260967657550069}
   reticle: {fileID: 5246180059870133583}
+  anim: {fileID: 2293071999524289222}
   moveSpeed: 4.5
   colorChanging: 0
   healthBar: {fileID: 2129148593019097165}
@@ -349,6 +352,8 @@ MonoBehaviour:
   resistMult: 2
   toleranceAngle: 0
   lightningDPS: 0
+  invisCost: 75
+  invisDuration: 3
 --- !u!114 &6423741214088230954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +403,75 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0047009788, y: -0.0148122115}
   m_Size: {x: 0.10838356, y: 0.1714772}
   m_Direction: 0
+--- !u!212 &1836721520235641121
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132841442560487103}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!95 &2293071999524289222
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132841442560487103}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b8a7ddac72bc77f4db7477b1f0bbb74b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5246180059870133583
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +541,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 40893ddbec0bc8147904436b8ff7d795, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

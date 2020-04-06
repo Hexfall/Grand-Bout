@@ -146,7 +146,6 @@ public class GameManager : MonoBehaviour
 
     public void CheckWin()
     {
-        print(AlivePlayers());
         if (AlivePlayers() == 1)
         {
             var winner = GetWinner();

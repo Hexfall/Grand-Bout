@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject wand;
     public GameObject crown;
     public GameObject reticle;
+    public Animator anim;
     public float moveSpeed;
     public bool colorChanging;
     private float moveMult = 1f;
@@ -301,6 +302,7 @@ public class PlayerController : MonoBehaviour
     public void SetLocation(Vector3 pos)
     {
         transform.position = pos;
+        anim.Play("Teleport");
     }
 
     public void Win()
@@ -336,7 +338,6 @@ public class PlayerController : MonoBehaviour
         alive = true;
         GetComponent<Collider2D>().enabled = true;
         Spawn();
-        print("tring");
     }
 
     public void Reset()

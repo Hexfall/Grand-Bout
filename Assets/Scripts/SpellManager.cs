@@ -24,6 +24,11 @@ public class SpellManager : MonoBehaviour
     public float lightningDPS;
     private bool castingLightning = false;
 
+    [Header("Invisibility")]
+    public float invisCost;
+    public float invisDuration;
+    private bool invisible = false;
+
     void Awake()
     {
         player = GetComponent<PlayerController>();
@@ -60,6 +65,7 @@ public class SpellManager : MonoBehaviour
     {
         if (!player.CanCast(fireballCost))
             return;
+        Uninvisible();
         player.SpendMana(fireballCost);
         var fire = Instantiate(fireball) as GameObject;
         fire.transform.GetChild(0).GetComponent<FireballScript>().owner = player;
@@ -92,5 +98,27 @@ public class SpellManager : MonoBehaviour
         player.PassiveRegainMana(StrengthCPS);
 
         Strengthened = false;
+    }
+
+    void OnInvisible()
+    {
+        if (invisible || !player.CanCast(invisCost))
+            return;
+        player.SpendMana(invisCost);
+        player.Hide();
+        invisible = true;
+        StartCoroutine(Invisible());
+    }
+
+    public void Uninvisible()
+    {
+        invisible = false;
+        player.Show();
+    }
+
+    IEnumerator Invisible()
+    {
+        yield return new WaitForSeconds(invisDuration);
+        Uninvisible();
     }
 }

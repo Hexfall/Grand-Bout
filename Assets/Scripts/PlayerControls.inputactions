@@ -76,6 +76,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(pressPoint=0.3,behavior=2)"
+                },
+                {
+                    "name": "Invisible",
+                    "type": "Button",
+                    "id": "6927bac9-e72a-4706-8ebe-bdf5fa77dabe",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -114,17 +122,6 @@
                 },
                 {
                     "name": "",
-                    "id": "746cfa9b-049e-4f67-98ed-becfc969bca9",
-                    "path": "<XInputController>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Strengthen",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ec159726-e8a5-4609-b301-8db6c599ba6f",
                     "path": "<XInputController>/leftTrigger",
                     "interactions": "",
@@ -138,17 +135,6 @@
                     "name": "",
                     "id": "4a4f7cd7-71e3-4392-8e5f-ec69194a6b9e",
                     "path": "<XInputController>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Exit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "434a5965-0f98-4295-af08-a903053dd9db",
-                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -197,6 +183,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Lightning",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f4a5891-9294-4197-9438-e1ecad9db42e",
+                    "path": "<XInputController>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Invisible",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
