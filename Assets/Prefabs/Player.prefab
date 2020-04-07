@@ -328,7 +328,7 @@ MonoBehaviour:
   lives: 5
   curLives: 0
   manaBar: {fileID: 8684388402071703696}
-  maxMana: 150
+  maxMana: 100
   mana: 100
   baseManaRegen: 25
   manaRegen: 0
@@ -647,6 +647,7 @@ GameObject:
   - component: {fileID: 5670620064156877472}
   - component: {fileID: 7920400738630180797}
   - component: {fileID: 8172902634949278796}
+  - component: {fileID: 4509982120306273281}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Untagged
@@ -758,6 +759,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.24}
   m_EdgeRadius: 0
+--- !u!95 &4509982120306273281
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723368220351841090}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9fc5c59c6995a6d42ab29647b67fe5c3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6207142162199408174
 GameObject:
   m_ObjectHideFlags: 0

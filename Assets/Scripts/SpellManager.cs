@@ -51,6 +51,7 @@ public class SpellManager : MonoBehaviour
 
         if (castingLightning && player.CanCast(lightningCostPS * Time.fixedDeltaTime) && !lightningWaitForReset)
         {
+            Uninvisible();
             EnableLightning();
             player.SpendMana(lightningCostPS * Time.fixedDeltaTime);
         }
