@@ -60,6 +60,9 @@ public class FireballScript : MonoBehaviour
         Pickup Pickup = other.transform.GetComponent<Pickup>();
         if (Pickup != null)
             return;
+
+        if (other.gameObject.GetComponent<LightningScript>() != null)
+            return;
         SelfDestruct();
     }
 }

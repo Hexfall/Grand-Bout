@@ -18,11 +18,13 @@ public class SpellManager : MonoBehaviour
     public float resistMult = 2f;
     private bool Strengthening = false;
     private bool Strengthened = false;
+    private bool strengthWaitForReset = false;
     
     [Header("Lightning")]
-    public float toleranceAngle;
-    public float lightningDPS;
+    public GameObject lightning;
+    public float lightningCostPS;
     private bool castingLightning = false;
+    private bool lightningWaitForReset = false;
 
     [Header("Invisibility")]
     public float invisCost;
@@ -32,14 +34,33 @@ public class SpellManager : MonoBehaviour
     void Awake()
     {
         player = GetComponent<PlayerController>();
+        lightning.SetActive(false);
     }
 
     private void FixedUpdate()
     {
-        if (Strengthening && player.CanCast((-player.baseManaRegen + StrengthCPS) * Time.fixedDeltaTime))
+        if (Strengthening && player.CanCast((-player.baseManaRegen + StrengthCPS) * Time.fixedDeltaTime) && !strengthWaitForReset)
             Strengthen();
+        else if (Strengthening)
+        {
+            strengthWaitForReset = true;
+            Unstregnthen();
+        }
         else
             Unstregnthen();
+
+        if (castingLightning && player.CanCast(lightningCostPS * Time.fixedDeltaTime) && !lightningWaitForReset)
+        {
+            EnableLightning();
+            player.SpendMana(lightningCostPS * Time.fixedDeltaTime);
+        }
+        else if (castingLightning)
+        {
+            lightningWaitForReset = true;
+            DisableLightning();
+        }
+        else
+            DisableLightning();
     }
 
     void OnFire()
@@ -50,15 +71,17 @@ public class SpellManager : MonoBehaviour
     void OnLightning()
     {
         castingLightning = !castingLightning;
-        if (castingLightning)
-            print("cast");
-        else
-            print("not");
+        lightningWaitForReset = false;
     }
 
-    void CastLightning()
+    void EnableLightning()
     {
+        lightning.SetActive(true);
+    }
 
+    void DisableLightning()
+    {
+        lightning.SetActive(false);
     }
 
     void CastFireball()
@@ -76,6 +99,7 @@ public class SpellManager : MonoBehaviour
     void OnStrengthen()
     {
         Strengthening = !Strengthening;
+        strengthWaitForReset = false;
     }
 
     void Strengthen()
