@@ -132,11 +132,15 @@ public class SpellManager : MonoBehaviour
         player.SpendMana(invisCost);
         player.Hide();
         invisible = true;
+        player.PassiveSpendMana(player.baseManaRegen);
         StartCoroutine(Invisible());
     }
 
     public void Uninvisible()
     {
+        if (!invisible)
+            return;
+        player.PassiveRegainMana(player.baseManaRegen);
         invisible = false;
         player.Show();
     }

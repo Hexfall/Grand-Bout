@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject robes;
     public GameObject wand;
     public GameObject crown;
+    public GameObject crownPrefab;
     public GameObject reticle;
     public Animator anim;
     public float moveSpeed;
@@ -25,8 +26,6 @@ public class PlayerController : MonoBehaviour
     public float health;
     public float healthRegen = 0f;
     public float respawnTime = 2f;
-    public int lives = 5;
-    public int curLives;
     [Header("Mana")]
     public GameObject manaBar;
     public float maxMana;
@@ -47,8 +46,7 @@ public class PlayerController : MonoBehaviour
         mana = maxMana;
         UpdateHealthBar();
         UpdateManaBar();
-        curLives = lives;
-        Lose();
+        Uncrown();
     }
 
     // Update is called once per frame
@@ -154,18 +152,12 @@ public class PlayerController : MonoBehaviour
 
     public void Kill()
     {
-        curLives--;
-        if (curLives < 0)
-            curLives = 0;
-        if (curLives != 0)
-            StartCoroutine(Respawn());
-        else
+        StartCoroutine(Respawn());
+        if (crown.activeSelf == true)
         {
-            alive = false;
-            GetComponent<Collider2D>().enabled = false;
-            Hide();
-            SpendMana(maxMana);
-            GameManager.i.CheckWin();
+            Instantiate(crownPrefab, transform.position, Quaternion.identity);
+            GameManager.i.RemoveCrownHolder();
+            Uncrown();
         }
     }
 
@@ -178,14 +170,9 @@ public class PlayerController : MonoBehaviour
         ColorChange();
     }
 
-    public bool Alive()
-    {
-        return (curLives > 0);
-    }
-
     void Move()
     {
-        rb.velocity = move * moveSpeed * moveMult;
+        rb.velocity = move * moveSpeed * moveMult * (crown.activeSelf ? .75f : 1f);
     }
 
     void OnMove(InputValue value)
@@ -244,6 +231,11 @@ public class PlayerController : MonoBehaviour
     {
         robes.GetComponent<SpriteRenderer>().color = color;
         reticle.GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public Color GetPlayerColor()
+    {
+        return robes.GetComponent<SpriteRenderer>().color;
     }
 
     public void MulitplyMovement(float multiplier)
@@ -305,12 +297,12 @@ public class PlayerController : MonoBehaviour
         anim.Play("Teleport");
     }
 
-    public void Win()
+    public void Crown()
     {
         crown.SetActive(true);
     }
 
-    public void Lose()
+    public void Uncrown()
     {
         crown.SetActive(false);
     }
@@ -344,8 +336,7 @@ public class PlayerController : MonoBehaviour
     {
         alive = true;
         Show();
-        Lose();
+        Uncrown();
         Spawn();
-        curLives = lives;
     }
 }

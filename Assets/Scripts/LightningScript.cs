@@ -16,9 +16,7 @@ public class LightningScript : MonoBehaviour
     void FixedUpdate()
     {
         foreach (PlayerController player in players)
-            if (player == null)
-                return;
-            else if (player != owner)
+            if (player != owner)
                 player.Damage(DPS * Time.fixedDeltaTime);
     }
 

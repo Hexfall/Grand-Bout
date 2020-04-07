@@ -314,6 +314,8 @@ MonoBehaviour:
   robes: {fileID: 6636567613578151874}
   wand: {fileID: 1709483186636620204}
   crown: {fileID: 5252260967657550069}
+  crownPrefab: {fileID: 501645033662713315, guid: 0e88e344bfedeb549a8f1136d1d8ff7e,
+    type: 3}
   reticle: {fileID: 5246180059870133583}
   anim: {fileID: 2293071999524289222}
   moveSpeed: 4.5
@@ -321,12 +323,10 @@ MonoBehaviour:
   healthBar: {fileID: 2129148593019097165}
   alive: 1
   invulnerable: 0
-  maxHealth: 250
+  maxHealth: 150
   health: 250
   healthRegen: 0
   respawnTime: 1
-  lives: 5
-  curLives: 0
   manaBar: {fileID: 8684388402071703696}
   maxMana: 100
   mana: 100
@@ -353,8 +353,8 @@ MonoBehaviour:
   resistMult: 2
   lightning: {fileID: 5723368220351841090}
   lightningCostPS: 65
-  invisCost: 45
-  invisDuration: 3
+  invisCost: 120
+  invisDuration: 1.5
 --- !u!114 &6423741214088230954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,7 +570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5823588296236794120
 Transform:
   m_ObjectHideFlags: 0

@@ -5,7 +5,6 @@ using UnityEngine;
 public class LevelScript : MonoBehaviour
 {
     public Vector3[] spawnPoints = new Vector3[1];
-
     public Vector3 GetSpawnByIndex(int index)
     {
         if (index >= spawnPoints.Length)
@@ -18,7 +17,7 @@ public class LevelScript : MonoBehaviour
         return spawnPoints[Random.Range(0, spawnPoints.Length - 1)];
     }
 
-    void OnDrawGizmosSelected()
+    public virtual void OnDrawGizmosSelected()
     {
         // Draw a small purple circle at the spawn points
         Gizmos.color = new Color(0.5f, 0, 0.5f, 1f);

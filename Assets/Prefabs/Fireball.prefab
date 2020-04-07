@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  damage: 125
+  damage: 90
   NoDamageTime: 0
   casing: {fileID: 3511683921538780308}
   explosion: {fileID: 2527076341322617141, guid: 1d482b593fbc4094db7c47c7387ef415,

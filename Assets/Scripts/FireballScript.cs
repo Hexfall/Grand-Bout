@@ -63,6 +63,10 @@ public class FireballScript : MonoBehaviour
 
         if (other.gameObject.GetComponent<LightningScript>() != null)
             return;
+
+        if (other.gameObject.GetComponent<CrownScript>() != null)
+            return;
+        
         SelfDestruct();
     }
 }

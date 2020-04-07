@@ -126,35 +126,16 @@ public class GameManager : MonoBehaviour
                 SetPlayerLocation(players[i], GetSpawn(i));
     }
 
-    public int AlivePlayers()
+    public void SetCrownHolder(PlayerController player)
     {
-        int retInt = 0;
-        foreach (var player in players)
-            if (player != null)
-                if (player.Alive())
-                    retInt++;
-        return retInt;
+        for (int i = 0; i < players.Length; i++)
+            if (player == players[i])
+                enabledLevelScript.gameObject.GetComponent<PlayableLevelScript>().SetCrownHolder(i);
     }
 
-    public PlayerController GetWinner()
+    public void RemoveCrownHolder()
     {
-        foreach (var player in players)
-            if (player != null && player.alive)
-                return player;
-        return null;
-    }
-
-    public void CheckWin()
-    {
-        if (AlivePlayers() == 1)
-        {
-            var winner = GetWinner();
-            MainMenu();
-            foreach (var player in players)
-                if (player != null)
-                    player.Reset();
-            winner.Win();
-        }
+        enabledLevelScript.gameObject.GetComponent<PlayableLevelScript>().SetCrownHolder(-1);
     }
 
     public void ScreenShake(float intensity, float duration = 0.1f)
