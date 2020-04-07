@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         mainMenu = false;
         invulnerable = false;
         pim.DisableJoining();
-        LoadLevel(Random.Range(1, levels.Length - 1));
+        LoadLevel(Random.Range(1, levels.Length));
         music.BattleMusic();
     }
 
