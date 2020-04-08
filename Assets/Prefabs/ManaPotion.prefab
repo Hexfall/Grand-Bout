@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DestroyOnPickup: 1
-  manaAmount: 40
+  manaAmount: 100
 --- !u!61 &8356307555981337478
 BoxCollider2D:
   m_ObjectHideFlags: 0

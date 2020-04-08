@@ -39,16 +39,6 @@ public class SpellManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Strengthening && player.CanCast((-player.baseManaRegen + StrengthCPS) * Time.fixedDeltaTime) && !strengthWaitForReset)
-            Strengthen();
-        else if (Strengthening)
-        {
-            strengthWaitForReset = true;
-            Unstregnthen();
-        }
-        else
-            Unstregnthen();
-
         if (castingLightning && player.CanCast(lightningCostPS * Time.fixedDeltaTime) && !lightningWaitForReset)
         {
             Uninvisible();
@@ -62,15 +52,28 @@ public class SpellManager : MonoBehaviour
         }
         else
             DisableLightning();
+
+        if (Strengthening && player.CanCast((-player.baseManaRegen + StrengthCPS) * Time.fixedDeltaTime) && !strengthWaitForReset)
+            Strengthen();
+        else if (Strengthening)
+        {
+            strengthWaitForReset = true;
+            Unstregnthen();
+        }
+        else
+            Unstregnthen();
     }
 
     void OnFire()
     {
-        CastFireball();
+        if (player.alive)
+            CastFireball();
     }
 
     void OnLightning()
     {
+        if (!player.alive)
+            return;
         castingLightning = !castingLightning;
         lightningWaitForReset = false;
     }
