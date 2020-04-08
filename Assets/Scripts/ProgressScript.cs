@@ -22,6 +22,12 @@ public class ProgressScript : MonoBehaviour
             Blink();
     }
 
+    private void OnEnable()
+    {
+        foreach (var item in blinking)
+            item.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+    }
+
     private void Blink()
     {
         foreach (var item in blinking)
