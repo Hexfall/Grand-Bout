@@ -317,6 +317,7 @@ MonoBehaviour:
   crownPrefab: {fileID: 501645033662713315, guid: 0e88e344bfedeb549a8f1136d1d8ff7e,
     type: 3}
   reticle: {fileID: 5246180059870133583}
+  corpse: {fileID: 2565224921599975924, guid: a8de5f17bc5d57348a66bcfb3bad1f11, type: 3}
   anim: {fileID: 2293071999524289222}
   moveSpeed: 4.5
   colorChanging: 0

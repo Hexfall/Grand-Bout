@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         // Clean up from previous level.
         enabledLevel.SetActive(false);
         PickupDropper.GetComponent<PickupDropper>().ClearDrops();
+        ClearDebris();
 
         enabledLevel = levels[index];
         enabledLevelScript = levelScripts[index];
@@ -150,5 +151,11 @@ public class GameManager : MonoBehaviour
             return enabledLevelScript.gameObject.GetComponent<PlayableLevelScript>().InNoDrop(point);
         }
         catch {return true;}
+    }
+
+    public void ClearDebris()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+            Destroy(transform.GetChild(i).gameObject);
     }
 }

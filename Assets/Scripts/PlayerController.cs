@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public GameObject crown;
     public GameObject crownPrefab;
     public GameObject reticle;
+    public GameObject corpse;
     public Animator anim;
     public float moveSpeed;
     public bool colorChanging;
@@ -153,6 +154,8 @@ public class PlayerController : MonoBehaviour
     public void Kill()
     {
         GameManager.i.ScreenShake(1f, .05f);
+        var blood = Instantiate(corpse, transform.position, Quaternion.identity);
+        blood.transform.parent = GameManager.i.transform;
         StartCoroutine(Respawn());
         if (crown.activeSelf == true)
         {
