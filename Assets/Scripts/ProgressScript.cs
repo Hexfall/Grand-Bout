@@ -5,11 +5,27 @@ using UnityEngine;
 public class ProgressScript : MonoBehaviour
 {
     public GameObject[] items;
+    public GameObject[] blinking;
+    [Range(0,1)]
+    public float blinkThreshold = 0.75f;
+    [Range(0,1)]
     public float progress = 0;
 
     void Awake()
     {       
         SetProgress(0f);
+    }
+
+    private void Update()
+    {
+        if (progress >= blinkThreshold)
+            Blink();
+    }
+
+    private void Blink()
+    {
+        foreach (var item in blinking)
+            item.GetComponent<SpriteRenderer>().color = Color.Lerp(new Color(1, 1, 1, 0), Color.white, Mathf.PingPong(Time.time * 3, 1));
     }
 
     public void SetColor(Color color)
