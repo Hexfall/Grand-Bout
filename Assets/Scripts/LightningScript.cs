@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightningScript : MonoBehaviour
 {
-    public List<PlayerController> players = new List<PlayerController>();
+    private PlayerController[] players = new PlayerController[4];
     private PlayerController owner;
     public float DPS;
 
@@ -15,20 +15,37 @@ public class LightningScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        foreach (PlayerController player in players)
-            if (player != owner)
-                player.Damage(DPS * Time.fixedDeltaTime);
+        for (int i = 0; i < players.Length; i++)
+            if (!(players[i] == owner || players[i] == null))
+                players[i].Damage(DPS * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<PlayerController>() != null)
-            players.Add(other.gameObject.GetComponent<PlayerController>());
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+        if (player != null)
+        {
+            foreach (var p in players)
+                if (p == player)
+                    return;
+            for (int i = 0; i < players.Length; i++)
+                if (players[i] == null)
+                {
+                    players[i] = player;
+                    return;
+                }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<PlayerController>() != null)
-            players.Remove(other.gameObject.GetComponent<PlayerController>());
+        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+        
+        if (player != null)
+        {
+            for (int i = 0; i < players.Length; i++)
+                if (players[i] == player)
+                    players[i] = null;
+        }
     }
 }
