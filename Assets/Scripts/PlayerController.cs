@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
 
     public void Kill()
     {
+        GameManager.i.ScreenShake(1f, .05f);
         StartCoroutine(Respawn());
         if (crown.activeSelf == true)
         {
