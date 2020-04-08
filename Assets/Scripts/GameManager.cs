@@ -142,4 +142,13 @@ public class GameManager : MonoBehaviour
     {
         Camera.main.gameObject.GetComponent<CameraManager>().ScreenShake(intensity, duration);
     }
+
+    public bool InNoDropZone(Vector3 point)
+    {
+        try
+        {
+            return enabledLevelScript.gameObject.GetComponent<PlayableLevelScript>().InNoDrop(point);
+        }
+        catch {return true;}
+    }
 }

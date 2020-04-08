@@ -37,7 +37,14 @@ public class PickupDropper : MonoBehaviour
         Vector3 retVec = Vector3.zero;
         retVec.x = Random.Range(-spawnArea.x, spawnArea.x);
         retVec.y = Random.Range(-spawnArea.y, spawnArea.y);
-        return retVec;
+        if (ValidSpot(retVec))
+            return retVec;
+        return RandomPoint();
+    }
+
+    private bool ValidSpot(Vector3 point)
+    {
+        return !GameManager.i.InNoDropZone(point);
     }
 
     public void ClearDrops()

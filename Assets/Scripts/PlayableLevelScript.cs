@@ -11,6 +11,7 @@ public class PlayableLevelScript : LevelScript
     public float progressRate = 0.1f;
     public GameObject[] progressItems;
     public ProgressScript[] progressScripts;
+    public Vector4[] noDropAreas;
 
     void Start()
     {
@@ -81,6 +82,17 @@ public class PlayableLevelScript : LevelScript
         GameManager.i.players[crownHolderIndex].Crown();
     }
 
+    public bool InNoDrop(Vector3 point)
+    {
+        foreach (Vector4 area in noDropAreas)
+            if (point.x >= Mathf.Min(area.x, area.y) &&
+                point.x <= Mathf.Max(area.x, area.y) &&
+                point.y >= Mathf.Min(area.z, area.w) &&
+                point.y <= Mathf.Max(area.z, area.w)
+            ) {return true;}
+        return false;
+    }
+
     public override void OnDrawGizmosSelected()
     {
         // Draw a small purple circle at the spawn points
@@ -89,5 +101,8 @@ public class PlayableLevelScript : LevelScript
             Gizmos.DrawSphere(spawnPoints[i], .08f);
         Gizmos.color = new Color(1f, 1f, 0f, 1f);
         Gizmos.DrawSphere(crownLocation, .08f);
+        Gizmos.color = new Color(1f, 0, 0f, 1f);
+        foreach (Vector4 area in noDropAreas)
+            Gizmos.DrawCube(new Vector3((area.x + area.y) / 2, (area.z + area.w) / 2, 1), new Vector3(Mathf.Abs(area.x - area.y), Mathf.Abs(area.z - area.w), 1));
     }
 }
